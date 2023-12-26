@@ -3,7 +3,7 @@
 import MagnifyingGlass from '../public/magnifying_glass.svg'
 import Upload from '../public/upload.svg'
 import Surprise from '../public/surprise.svg'
-import { Loader } from '@mantine/core'
+import { Loader, Notification, Burger, Autocomplete } from '@mantine/core'
 import { useState } from 'react'
 
 export default function Home() {
@@ -22,6 +22,7 @@ export default function Home() {
         <button onClick={() => setMagnifyLoader(!magnifyLoader)} className='w-1/8 h-1/2 bg-lightGray rounded p-4 text-darkGray drop-shadow-lg outline-none duration-100 transform hover:shadow-lg hover:-translate-y-1'>{magnifyLoader ? <Loader color='blue' size={30} /> : <MagnifyingGlass/>}</button>
         <button onClick={() => setUploadLoader(!uploadLoader)} className='w-1/8 h-1/2 bg-lightGray rounded p-4 text-darkGray drop-shadow-lg outline-none duration-100 transform hover:shadow-lg hover:-translate-y-1'>{uploadLoader ? <Loader color='blue' size={30} /> : <Upload/>}</button>
         <button onClick={() => setSurpriseLoader(!surpriseLoader)} className='w-1/8 h-1/2 bg-lightGray rounded p-4 text-darkGray drop-shadow-lg outline-none duration-100 transform hover:shadow-lg hover:-translate-y-1'>{surpriseLoader ? <Loader color='blue' size={30} /> : <Surprise/>}</button>
+        <Notification className='text-darkGray' color='red' title="test">testing</Notification>
       </div>
     </main>
   )

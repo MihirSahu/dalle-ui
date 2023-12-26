@@ -1,8 +1,10 @@
+import '@mantine/core/styles.css';
+
 import type { Metadata } from 'next'
 import { Lexend } from 'next/font/google'
 import './globals.css'
 import Navbar from './components/navbar'
-import { MantineProvider } from '@mantine/core'
+import { ColorSchemeScript, MantineProvider } from '@mantine/core'
 
 const lexend = Lexend({ subsets: ['latin'], weight: ["600"] })
 
@@ -17,11 +19,12 @@ export default function RootLayout({
 }) {
   return (
       <html lang="en">
+        <head>
+          <ColorSchemeScript />
+        </head>
         <body className={lexend.className}>
-          <MantineProvider>
           <Navbar />
-          {children}
-          </MantineProvider>
+          <MantineProvider>{children}</MantineProvider>
         </body>
       </html>
   )
