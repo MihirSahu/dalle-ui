@@ -11,7 +11,6 @@ export default function Login() {
   const router = useRouter()
   const supabase = createClientComponentClient()
 
-  /*
   const handleSignUp = async () => {
     await supabase.auth.signUp({
       email,
@@ -22,22 +21,6 @@ export default function Login() {
     })
     router.refresh()
   }
-  */
-
-  const handleSignIn = async () => {
-    await supabase.auth.signInWithPassword({
-      email,
-      password,
-    })
-    router.refresh()
-  }
-
-  /*
-  const handleSignOut = async () => {
-    await supabase.auth.signOut()
-    router.refresh()
-  }
-  */
 
   return (
     <main className="flex h-fit flex-col items-center p-24 space-y-12">
@@ -57,9 +40,9 @@ export default function Login() {
         placeholder='Password'
       />
       <div className='flex flex-row space-x-5'>
-        <button className='w-1/8 h-1/5 bg-lightGray rounded p-3 text-darkGray drop-shadow-lg outline-none duration-100 transform hover:shadow-lg hover:-translate-y-1' onClick={handleSignIn}>Sign in</button>
+        <button className='w-1/8 h-1/5 bg-lightGray rounded p-3 text-darkGray drop-shadow-lg outline-none duration-100 transform hover:shadow-lg hover:-translate-y-1' onClick={handleSignUp}>Sign up</button>
       </div>
-      <div>Don't have an account? <Link href='\signup'>Sign up</Link></div>
+      <div>Already have an account? <Link href='\login'>Log in</Link></div>
     </main>
   )
 }
