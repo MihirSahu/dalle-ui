@@ -23,8 +23,10 @@ export default function RootLayout({
           <ColorSchemeScript />
         </head>
         <body className={lexend.className}>
-          <Navbar />
-          <MantineProvider>{children}</MantineProvider>
+          <MantineProvider>
+            <Navbar />
+            {children}
+          </MantineProvider>
         </body>
       </html>
   )
