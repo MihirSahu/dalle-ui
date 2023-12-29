@@ -58,7 +58,7 @@ const ModelSelect = () => {
             },
           }}
         >
-          {value || <Input.Placeholder>Pick value</Input.Placeholder>}
+          {value || <Input.Placeholder>Select model</Input.Placeholder>}
         </InputBase>
       </Combobox.Target>
 
