@@ -14,8 +14,8 @@ const Navbar = () => {
       <Link href='\' className="font-bold">DALLE UI</Link>
       <div className="flex flex-row space-x-10">
         <button className="text-darkGray hover:text-black hidden sm:block">About</button>
-        { pathname === '/' || pathname === '/login' || pathname === 'sign-in' ? <></> : <Link href="\login" className="text-darkGray hover:text-black hidden sm:block">API Keys</Link> }
-        { pathname === '/' || pathname === '/login' || pathname === 'sign-in' ? <Link href="\login" className="text-darkGray hover:text-black hidden sm:block">Log in</Link> : <form className="text-darkGray hover:text-black hidden sm:block" action='/auth/logout' method='post'><button>Sign out</button></form> }
+        { pathname === '/' || pathname === '/login' || pathname === '/signup' ? <></> : <Link href="\login" className="text-darkGray hover:text-black hidden sm:block">API Keys</Link> }
+        { pathname === '/' || pathname === '/login' || pathname === '/signup' ? <Link href="\login" className="text-darkGray hover:text-black hidden sm:block">Log in</Link> : <form className="text-darkGray hover:text-black hidden sm:block" action='/auth/logout' method='post'><button>Sign out</button></form> }
 
         <Burger className="sm:hidden" opened={opened} onClick={toggle} aria-label="Toggle navigation" />
         <Drawer styles={{
