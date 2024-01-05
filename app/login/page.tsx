@@ -44,7 +44,7 @@ export default function Login() {
       notifications.show({ 
         title: 'Signed in successfully', 
         message: 'Enjoy your stay!', 
-        color: 'red',
+        color: 'blue',
         closeButtonProps: { display: 'none' },
       })
     }
