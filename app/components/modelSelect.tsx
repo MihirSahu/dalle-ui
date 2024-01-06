@@ -58,7 +58,11 @@ const ModelSelect = () => {
             },
           }}
         >
-          {value || <Input.Placeholder>Select model</Input.Placeholder>}
+          {value || <Input.Placeholder
+            style={{
+              whiteSpace: 'nowrap',
+            }}
+          >Select model</Input.Placeholder>}
         </InputBase>
       </Combobox.Target>
 

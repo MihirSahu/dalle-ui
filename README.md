@@ -1,5 +1,11 @@
 # DALL-E UI
 
+## Supported Models
+- [DALLE 2](https://openai.com/dall-e-2)
+- [DALLE 3](https://openai.com/dall-e-3)
+- [DeepAI](https://deepai.org/machine-learning-model/text2img)
+- [Stability.ai](https://platform.stability.ai/)
+
 ## Resources
 ### Front End
 - [TailwindCSS Docs](https://tailwindcss.com/)
