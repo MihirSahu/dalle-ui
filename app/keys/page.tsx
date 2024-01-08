@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Loader } from '@mantine/core'
 import classes from './NavbarSimple.module.css';
 import OpenAI from '../../public/openai-svgrepo-com.svg';
@@ -19,7 +19,35 @@ export default function Keys() {
   const [key, setKey] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
-  const [model, setModel] = useState('')
+  const [model, setModel] = useState('OpenAI')
+
+  useEffect(()  => {
+    const fetchKey = async () => {
+      const formData = new URLSearchParams();
+      formData.append('model', model);
+
+      const response = await fetch('/apiKeys/read', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: formData,
+      })
+
+      if (response.status !== 200) {
+        notifications.show({ 
+          title: 'Something went wrong', 
+          message: 'Key could not be fetched', 
+          color: 'red',
+          closeButtonProps: { display: 'none' },
+        })
+      }
+
+      const key = await response.json()
+      setKey(key.data[0].key)
+    }
+    fetchKey()
+  }, [model])
 
   const handleSubmit = async (e: any) => {
     e.preventDefault()
@@ -28,7 +56,7 @@ export default function Keys() {
     formData.append('apiKey', key);
     formData.append('model', model);
 
-    const response = await fetch('/apiKeys', {
+    const response = await fetch('/apiKeys/insert', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -49,8 +77,8 @@ export default function Keys() {
     else {
       setLoading(false);
       notifications.show({ 
-        title: 'Signed in successfully', 
-        message: 'Enjoy your stay!', 
+        title: 'Key set successfully', 
+        message: 'You can create images now!', 
         color: 'blue',
         closeButtonProps: { display: 'none' },
       })
