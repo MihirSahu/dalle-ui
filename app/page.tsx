@@ -9,7 +9,7 @@ export default async function Home() {
         <div className="text-black font-semibold text-xl text-center">Use the most popular image generation models to their full extent, effortlessly.</div>
         <div className="text-black font-semibold text-xl text-center">Completely free, no account necessary.</div>
       </div>
-      <Footer />
+      {/*<Footer />*/}
     </main>
   )
 }

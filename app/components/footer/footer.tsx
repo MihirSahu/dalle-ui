@@ -10,7 +10,7 @@ export default function Footer() {
       <Container>
         <span style={{ display: 'inline-flex', alignItems: 'center' }}>
           Made with
-          <Image style={{marginLeft: '8px', marginRight: '8px'}} src="/heart.png" alt='❤️' width={20} height={20} />
+          <Image style={{marginLeft: '8px', marginRight: '8px'}} src="/heart.png" alt='hi' width={20} height={20} />
           by&nbsp; <a href='https://mihirsahu.com' target='_blank' style={{color: 'red'}}>Mihir Sahu</a>
         </span>
       </Container>
