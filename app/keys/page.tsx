@@ -6,6 +6,7 @@ import classes from './NavbarSimple.module.css';
 import OpenAI from '../../public/openai-svgrepo-com.svg';
 import Image from 'next/image';
 import { notifications } from '@mantine/notifications';
+import { FormEvent } from 'react';
 
 const data = [
   { link: '', label: 'OpenAI', icon: <OpenAI height={20} width={20} /> },
@@ -16,10 +17,14 @@ const data = [
 export default function Keys() {
   const [active, setActive] = useState('OpenAI');
 
+  const [insertLoading, setInsertLoading] = useState(false)
+  const [updateLoading, setUpdateLoading] = useState(false)
+  const [deleteLoading, setDeleteLoading] = useState(false)
+
   const [key, setKey] = useState('')
-  const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [model, setModel] = useState('OpenAI')
+  const [action, setAction] = useState('')
 
   useEffect(()  => {
     const fetchKey = async () => {
@@ -44,19 +49,39 @@ export default function Keys() {
       }
 
       const key = await response.json()
-      setKey(key.data[0].key)
+      if (key.data.length === 0){
+        setKey('')
+      }
+      else {
+        setKey(key.data[0].key)
+      }
     }
     fetchKey()
   }, [model])
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>, action: string) => {
     e.preventDefault()
+
+    const actionData: any = {
+      'insert': {
+        'route': '/apiKeys/insert', 
+        'message': 'Key set successfully'
+      },
+      'update': {
+        'route': '/apiKeys/update', 
+        'message': 'Key updated successfully'
+      },
+      'delete': {
+        'route': '/apiKeys/delete', 
+        'message': 'Key deleted successfully'
+      },
+    }
 
     const formData = new URLSearchParams();
     formData.append('apiKey', key);
     formData.append('model', model);
 
-    const response = await fetch('/apiKeys/insert', {
+    const response = await fetch(actionData[action]['route'], {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -65,7 +90,6 @@ export default function Keys() {
     })
 
     if (response.status !== 200) {
-      setLoading(false)
       setError('Something went wrong')
       notifications.show({ 
         title: 'Something went wrong', 
@@ -75,14 +99,19 @@ export default function Keys() {
       })
     }
     else {
-      setLoading(false);
+      if (action === 'delete') {
+        setKey('')
+      }
       notifications.show({ 
-        title: 'Key set successfully', 
+        title: actionData[action]['message'], 
         message: 'You can create images now!', 
         color: 'blue',
         closeButtonProps: { display: 'none' },
       })
     }
+    setInsertLoading(false)
+    setUpdateLoading(false)
+    setDeleteLoading(false)
   }
 
   const links = data.map((item) => (
@@ -109,7 +138,7 @@ export default function Keys() {
           {links}
         </div>
       </nav>
-      <form className="flex h-fit flex-col items-center p-24 space-y-12" onSubmit={handleSubmit} method='post'>
+      <form className="flex h-fit w-full flex-col items-center p-24 space-y-12" onSubmit={(event) => handleSubmit(event, action)} method='post'>
         <input
           name='api'
           className="w-1/3 min-w-80 h-12 bg-lightGray rounded p-4 text-darkGray drop-shadow-lg outline-none whitespace-normal resize-none overflow-hidden"
@@ -118,8 +147,23 @@ export default function Keys() {
           placeholder='API Key'
         />
         <div className='flex flex-row space-x-5'>
-          <button className='w-1/8 h-1/5 bg-lightGray rounded p-3 text-darkGray drop-shadow-lg outline-none duration-100 transform hover:shadow-lg hover:-translate-y-1' onClick={() => setLoading(true)}>
-            { loading ? <Loader type='dots' color='black' /> : <div>Set key</div>}
+          <button className='w-1/8 h-1/5 bg-lightGray rounded p-3 text-darkGray drop-shadow-lg outline-none duration-100 transform hover:shadow-lg hover:-translate-y-1' onClick={() => {
+            setInsertLoading(true)
+            setAction('insert')
+          }}>
+            { insertLoading ? <Loader type='dots' color='black' /> : <div>Set key</div>}
+          </button>
+          <button className='w-1/8 h-1/5 bg-lightGray rounded p-3 text-darkGray drop-shadow-lg outline-none duration-100 transform hover:shadow-lg hover:-translate-y-1' onClick={() => {
+            setUpdateLoading(true)
+            setAction('update')
+          }}>
+            { updateLoading ? <Loader type='dots' color='black' /> : <div>Update key</div>}
+          </button>
+          <button className='w-1/8 h-1/5 bg-lightGray rounded p-3 text-darkGray drop-shadow-lg outline-none duration-100 transform hover:shadow-lg hover:-translate-y-1' onClick={() => {
+            setDeleteLoading(true)
+            setAction('delete')
+          }}>
+            { deleteLoading ? <Loader type='dots' color='black' /> : <div>Delete key</div>}
           </button>
         </div>
       </form>
