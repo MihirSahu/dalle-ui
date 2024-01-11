@@ -22,3 +22,9 @@
 ### Supabase
 - [Supabase JavaScript Client Library Docs](https://supabase.com/docs/reference/javascript/installing)
 - [Supabase Authentication Docs](https://supabase.com/docs/guides/auth/auth-helpers/nextjs?language=ts)
+### Model API Docs
+- [DALLE Guide](https://platform.openai.com/docs/guides/images/usage?context=node)
+- [DALLE API Docs](https://platform.openai.com/docs/api-reference/images)
+
+### Errors
+- [Fetching from server components inside server components](https://stackoverflow.com/questions/76309154/next-js-typeerror-failed-to-parse-url-from-when-targeting-api-route-relati)

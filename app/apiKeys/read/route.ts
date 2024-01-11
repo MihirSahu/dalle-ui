@@ -20,6 +20,9 @@ export async function POST(request: Request) {
   } 
 
   else {
+    if (data.length === 0){
+      return NextResponse.json( { error: "No API key found" }, { status: 401 })
+    }
     return NextResponse.json( { data: data }, { status: 200 })
   }
 }

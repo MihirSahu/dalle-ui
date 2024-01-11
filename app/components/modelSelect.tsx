@@ -10,7 +10,7 @@ const groceries = [
 
 const lexend = Lexend({ subsets: ['latin'], weight: ["600"] })
 
-const ModelSelect = () => {
+const ModelSelect = ({ onValueChange }: any) => {
   const combobox = useCombobox({
     onDropdownClose: () => combobox.resetSelectedOption(),
   });
@@ -23,6 +23,12 @@ const ModelSelect = () => {
     </Combobox.Option>
   ));
 
+  const handleOptionSubmit = (val: string) => {
+    setValue(val);
+    combobox.closeDropdown();
+    onValueChange(val);
+  }
+
   return (
     <Combobox
       styles={{
@@ -33,10 +39,7 @@ const ModelSelect = () => {
       }}
       store={combobox}
       withinPortal={false}
-      onOptionSubmit={(val) => {
-        setValue(val);
-        combobox.closeDropdown();
-      }}
+      onOptionSubmit={(val) => {handleOptionSubmit(val)}}
     >
       <Combobox.Target>
         <InputBase

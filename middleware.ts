@@ -22,7 +22,7 @@ export async function middleware(req: NextRequest) {
   }
 
   // if user is not signed in and the current path is not / redirect the user to /
-  if (!user && (req.nextUrl.pathname !== '/' && req.nextUrl.pathname !== '/login' && req.nextUrl.pathname !== '/signup' && req.nextUrl.pathname !== '/auth/login' && req.nextUrl.pathname !== '/auth/logout' && req.nextUrl.pathname !== '/auth/sign-up')) {
+  if (!user && (req.nextUrl.pathname !== '/' && req.nextUrl.pathname !== '/login' && req.nextUrl.pathname !== '/signup' && req.nextUrl.pathname !== '/auth/login' && req.nextUrl.pathname !== '/auth/logout' && req.nextUrl.pathname !== '/auth/sign-up' && req.nextUrl.pathname !== '/apiKeys/read')) {
     return NextResponse.redirect(new URL('/', req.url))
   }
 
