@@ -28,7 +28,7 @@ export async function POST(request: Request) {
   const signedUrls = await supabase
     .storage
     .from('images')
-    .createSignedUrls(urls.data.map(file => `${userId}/` + file.name), 60
+    .createSignedUrls(urls.data.map(file => `${userId}/` + file.name), 31622400
   )
 
   if (signedUrls.error) {
