@@ -7,6 +7,7 @@ import { Loader, Notification } from '@mantine/core'
 import { useState } from 'react'
 import ModelSelect from '../components/modelSelect'
 import { notifications } from '@mantine/notifications';
+import Image from 'next/image';
 
 export default function Home() {
   const modelNames: any = {
@@ -95,7 +96,7 @@ export default function Home() {
       <div className='flex flex-wrap flex-row space-x-5 space-y-5'>
         {
           imageURLs.map((url, index) => (
-            <img src={`data:image/jpeg;base64,${url}`} key={index} width={256} height={256} className='rounded'/>
+            <Image src={`data:image/jpeg;base64,${url}`} key={index} width={256} height={256} className='rounded' alt='image lol' />
           ))
         }
       </div>
