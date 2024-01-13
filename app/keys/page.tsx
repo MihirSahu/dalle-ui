@@ -41,20 +41,17 @@ export default function Keys() {
 
       if (response.status !== 200) {
         notifications.show({ 
-          title: 'Something went wrong', 
-          message: 'Key could not be fetched', 
+          title: 'Key could not be fetched', 
+          message: 'Set a key!', 
           color: 'red',
           closeButtonProps: { display: 'none' },
         })
-      }
-
-      const key = await response.json()
-      if (key.data.length === 0){
-        setKey('')
+        setKey('');
       }
       else {
-        setKey(key.data[0].key)
-      }
+        const key = await response.json()
+          setKey(key.data[0].key)
+        }
     }
     fetchKey()
   }, [model])
