@@ -7,6 +7,7 @@ import OpenAI from '../../public/openai-svgrepo-com.svg';
 import Image from 'next/image';
 import { notifications } from '@mantine/notifications';
 import { FormEvent } from 'react';
+import Copy from '../../public/Copy.svg';
 
 const data = [
   { link: '', label: 'OpenAI', icon: <OpenAI height={20} width={20} /> },
@@ -128,6 +129,10 @@ export default function Keys() {
     </a>
   ));
 
+  const formatKey = (key: string) => {
+    return key.slice(0, 7) + '...' + key.slice(-7);
+  };
+
   return (
     <div className='flex flex-row'>
       <nav className={classes.navbar}>
@@ -136,13 +141,35 @@ export default function Keys() {
         </div>
       </nav>
       <form className="flex h-fit w-full flex-col items-center p-24 space-y-12" onSubmit={(event) => handleSubmit(event, action)} method='post'>
-        <input
-          name='api'
-          className="w-1/3 min-w-80 h-12 bg-lightGray rounded p-4 text-darkGray drop-shadow-lg outline-none whitespace-normal resize-none overflow-hidden"
-          onChange={(e) => setKey(e.target.value)}
-          value={key}
-          placeholder='API Key'
-        />
+        <div className='flex flex-row space-x-5'>
+          <input
+            name='api'
+            className="w-1/4 min-w-80 h-12 bg-lightGray rounded p-4 text-darkGray drop-shadow-lg outline-none whitespace-normal resize-none overflow-hidden text-center"
+            onChange={(e) => setKey(e.target.value)}
+            value={key !== '' ? formatKey(key) : ''}
+            placeholder='API Key'
+          />
+          <button type='button' onClick={async () => {
+              try {
+                await navigator.clipboard.writeText(key)
+                notifications.show({ 
+                  title: "Copied to clipboard!", 
+                  message: 'You can create images now!', 
+                  color: 'blue',
+                  closeButtonProps: { display: 'none' },
+                })
+              }
+              catch (err) {
+                notifications.show({ 
+                  title: (err as Error).message, 
+                  message: 'Please try again', 
+                  color: 'red',
+                  closeButtonProps: { display: 'none' },
+                })
+              }
+            }
+          } className='w-1/8 h-1/2 bg-lightGray rounded p-4 text-darkGray drop-shadow-lg outline-none duration-100 transform hover:shadow-lg hover:-translate-y-1'><Copy/></button>
+        </div>
         <div className='flex flex-row space-x-5'>
           <button className='w-1/8 h-1/5 bg-lightGray rounded p-3 text-darkGray drop-shadow-lg outline-none duration-100 transform hover:shadow-lg hover:-translate-y-1' onClick={() => {
             setInsertLoading(true)
