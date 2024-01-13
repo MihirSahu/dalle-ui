@@ -52,13 +52,15 @@ export default function Home() {
     }
     else {
       const url = await response.json()
-      setImageURLs(prevImageURLs => [...prevImageURLs, url.data.data[0].url]);
+      setImageURLs(prevImageURLs => [...prevImageURLs, url.data.data[0].b64_json]);
+      /*
       notifications.show({ 
         title: "Hello world!",
         message: 'You can create images now!', 
         color: 'blue',
         closeButtonProps: { display: 'none' },
       })
+      */
     }
   }
 
@@ -93,7 +95,7 @@ export default function Home() {
       <div className='flex flex-wrap flex-row space-x-5 space-y-5'>
         {
           imageURLs.map((url, index) => (
-            <img src={url} key={index} width={256} height={256} className='rounded'/>
+            <img src={`data:image/jpeg;base64,${url}`} key={index} width={256} height={256} className='rounded'/>
           ))
         }
       </div>

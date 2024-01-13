@@ -3,6 +3,8 @@ import { NextResponse } from 'next/server'
 import OpenAI from 'openai'
 import { Image, ImageGenerateParams } from 'openai/resources/images.mjs'
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
+import {decode} from 'base64-arraybuffer'
+import { v4 as uuidv4 } from 'uuid';
 
 export async function POST(request: Request) {
   // Receive the prompt, size, and n from the client
@@ -36,7 +38,20 @@ export async function POST(request: Request) {
       prompt: prompt,
       size: size as ImageGenerateParams['size'],
       n: parseInt(imageCount),
+      response_format: 'b64_json'
     })
+
+    const bucketData = await supabase
+      .storage
+      .from('images')
+      .upload(`${userId}/${uuidv4()}.jpeg`, decode(openai_response.data[0].b64_json as string), {
+        cacheControl: '3600',
+        upsert: false
+    })
+
+    if (bucketData.error) {
+      return NextResponse.json( { error: bucketData.error }, { status: 401 })
+    }
 
     return NextResponse.json( { data: openai_response }, { status: 200 })
   }
