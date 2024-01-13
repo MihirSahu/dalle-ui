@@ -8,6 +8,15 @@ const nextConfig = {
 
     return config;
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '*.supabase.co',
+        port: '',
+      }
+    ]
+  },
 }
 
 module.exports = nextConfig
