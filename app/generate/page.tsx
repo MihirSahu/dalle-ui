@@ -30,6 +30,16 @@ export default function Home() {
   }
 
   const handleSubmit = async () => {
+    if (model === '') {
+      notifications.show({ 
+        title: 'Please select a model', 
+        message: 'You can select a model from the dropdown', 
+        color: 'red',
+        closeButtonProps: { display: 'none' },
+      })
+      return;
+    }
+
     const formData = new URLSearchParams();
     formData.append('prompt', prompt);
     formData.append('size', size);
@@ -68,20 +78,22 @@ export default function Home() {
   return (
     <main className="flex h-fit flex-col items-center p-24 space-y-16">
       <div className="text-black font-semibold text-6xl text-center">Unleash Your Creativity.</div>
-      <textarea
-        rows={1}
-        className="w-1/2 min-w-80 h-32 lg:h-1/2 bg-lightGray rounded p-4 text-darkGray drop-shadow-lg outline-none whitespace-normal resize-none overflow-hidden"
-        placeholder="A group of three computer science friends hugging"
-        onChange={(text) => setPrompt(text.target.value)}
-      />
-      <div className="flex flex-row justify-center w-4/5 space-x-5">
-        <ModelSelect onValueChange={handleModelSelectValueChange}/>
+      <div className="flex flex-row flex-wrap justify-center w-4/5 space-x-5 space-y-5 md:-space-y-0">
+        <textarea
+          rows={1}
+          className="w-1/2 min-w-80 h-32 lg:h-1/2 bg-lightGray rounded p-4 text-darkGray drop-shadow-lg outline-none whitespace-normal resize-none overflow-hidden"
+          placeholder="A group of three computer science friends hugging"
+          onChange={(text) => setPrompt(text.target.value)}
+        />
         <button onClick={() => {
           setMagnifyLoader(!magnifyLoader)
           handleSubmit()
         }} className='w-1/8 h-1/2 bg-lightGray rounded p-4 text-darkGray drop-shadow-lg outline-none duration-100 transform hover:shadow-lg hover:-translate-y-1'><MagnifyingGlass/></button>
         <button onClick={() => setUploadLoader(!uploadLoader)} className='w-1/8 h-1/2 bg-lightGray rounded p-4 text-darkGray drop-shadow-lg outline-none duration-100 transform hover:shadow-lg hover:-translate-y-1'><Upload/></button>
         <button onClick={() => setSurpriseLoader(!surpriseLoader)} className='w-1/8 h-1/2 bg-lightGray rounded p-4 text-darkGray drop-shadow-lg outline-none duration-100 transform hover:shadow-lg hover:-translate-y-1'><Surprise/></button>
+      </div>
+      <div className="flex flex-row justify-center w-4/5">
+        <ModelSelect onValueChange={handleModelSelectValueChange}/>
       </div>
       {/*<div>
         1. Generate API key from OpenAI
