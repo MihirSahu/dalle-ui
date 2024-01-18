@@ -25,6 +25,10 @@ export async function POST(request: Request) {
     return NextResponse.json( { error: urls.error }, { status: 401 })
   }
 
+  if (urls.data.length === 0) {
+    return NextResponse.json( { data: [] }, { status: 200 })
+  }
+
   const signedUrls = await supabase
     .storage
     .from('images')
