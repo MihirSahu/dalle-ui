@@ -13,6 +13,7 @@ const data = [
   { link: '', label: 'OpenAI', icon: <OpenAI height={20} width={20} /> },
   { link: '', label: 'StabilityAI', icon: <Image src="/stabilityAI.png" alt='StabilityAI logo' height={20} width={20} /> },
   { link: '', label: 'DeepAI', icon: <Image src="/deepAI.png" alt='DeepAI logo' height={20} width={20} /> },
+  { link: '', label: 'AI or Not', icon: <Image src="/aiornot.png" alt='AI or Not logo' height={20} width={20} /> },
 ];
 
 export default function Keys() {
