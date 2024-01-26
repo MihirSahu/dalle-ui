@@ -73,6 +73,9 @@ export default function Home() {
       })
       */
     }
+    setMagnifyLoader(false);
+    setUploadLoader(false);
+    setSurpriseLoader(false);
   }
 
   return (
@@ -88,7 +91,7 @@ export default function Home() {
         <button onClick={() => {
           setMagnifyLoader(!magnifyLoader)
           handleSubmit()
-        }} className='w-1/8 h-1/2 bg-lightGray rounded p-4 text-darkGray drop-shadow-lg outline-none duration-100 transform hover:shadow-lg hover:-translate-y-1'><MagnifyingGlass/></button>
+        }} className='w-1/8 h-1/2 bg-lightGray rounded p-4 text-darkGray drop-shadow-lg outline-none duration-100 transform hover:shadow-lg hover:-translate-y-1'>{magnifyLoader ? <Loader color='black' size={25} /> : <MagnifyingGlass/>}</button>
         <button onClick={() => setUploadLoader(!uploadLoader)} className='w-1/8 h-1/2 bg-lightGray rounded p-4 text-darkGray drop-shadow-lg outline-none duration-100 transform hover:shadow-lg hover:-translate-y-1'><Upload/></button>
         <button onClick={() => setSurpriseLoader(!surpriseLoader)} className='w-1/8 h-1/2 bg-lightGray rounded p-4 text-darkGray drop-shadow-lg outline-none duration-100 transform hover:shadow-lg hover:-translate-y-1'><Surprise/></button>
       </div>
