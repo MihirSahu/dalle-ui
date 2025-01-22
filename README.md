@@ -1,5 +1,7 @@
 # DALL-E UI
 
+A front-end for the OpenAI DALL-E API.
+
 ## Supported Models
 - [DALLE 2](https://openai.com/dall-e-2)
 - [DALLE 3](https://openai.com/dall-e-3)
